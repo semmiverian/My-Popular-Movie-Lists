@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="id.semmi.mymovielist.MainActivity">
+    <item
+        android:id="@+id/action_popular"
+        android:orderInCategory="100"
+        android:title="@string/popular"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_highest_rated"
+        android:orderInCategory="100"
+        android:title="@string/highest_rated"
+        app:showAsAction="never" />
+</menu>
