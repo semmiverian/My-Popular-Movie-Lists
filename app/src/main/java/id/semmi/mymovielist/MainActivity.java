@@ -1,6 +1,9 @@
 package id.semmi.mymovielist;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
@@ -20,6 +23,8 @@ import java.util.List;
 
 import id.semmi.mymovielist.models.NowPlaying;
 import id.semmi.mymovielist.models.Movies;
+import id.semmi.mymovielist.persist.MovieContract;
+import id.semmi.mymovielist.persist.MovieDbHelper;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -62,6 +67,40 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(movieDetailsIntent);
             }
         });
+
+
+        MovieDbHelper helper = new MovieDbHelper(this);
+        SQLiteDatabase database = helper.getWritableDatabase();
+        ContentValues test = insertDummyData();
+        long row_id;
+//        row_id = database.insert(MovieContract.MovieEntry.Table_Name,null,test);
+//        Log.d(TAG, "onCreate: "+row_id);
+//
+//        Cursor cursor = database.query(MovieContract.MovieEntry.Table_Name,null,null,null,null,null,null);
+//        Log.d(TAG, "onCreate: "+cursor.moveToFirst());
+//        Log.d(TAG, "onCreate1212: "+cursor.getString(1));
+//        cursor.close();
+//        database.close();
+
+
+//
+//        this.getContentResolver().insert(MovieContract.MovieEntry.CONTENT_URI,insertDummyData());
+//
+//        Cursor cursor = this.getContentResolver().query(MovieContract.MovieEntry.buildFavoriteMovieWithId("1"),null,null,null,null);
+//        assert cursor != null;
+//        Log.d(TAG, "onCreate pake provider: "+ cursor.getCount());
+//        cursor.close();
+
+    }
+
+    public ContentValues insertDummyData(){
+        ContentValues test = new ContentValues();
+        test.put(MovieContract.MovieEntry.COLUMN_NAME,"Jono Man");
+        test.put(MovieContract.MovieEntry.COLUMN_DATE,"12/12/12");
+        test.put(MovieContract.MovieEntry.COLUMN_RATING,4.5);
+        test.put(MovieContract.MovieEntry.COLUMN_DESCRIPTION,"Lorem Ipsum");
+        test.put(MovieContract.MovieEntry.COLUMN_IMAGE,"/dummy");
+        return test;
     }
 
     @Override

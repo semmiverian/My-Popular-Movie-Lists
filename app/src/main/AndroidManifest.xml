@@ -29,6 +29,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="id.semmi.mymovielist.MainActivity" />
         </activity>
+
+        <provider
+            android:authorities="id.semmi.mymovielist"
+            android:name=".persist.MovieContentProvider"/>
     </application>
 
 </manifest>
