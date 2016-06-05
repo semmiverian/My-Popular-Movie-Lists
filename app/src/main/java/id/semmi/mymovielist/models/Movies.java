@@ -7,6 +7,7 @@ import android.os.Parcelable;
  * Created by Semmiverian on 5/26/16.
  */
 public class Movies implements Parcelable{
+    private String id;
     private String poster_path;
     private String overview;
     private String original_title;
@@ -16,7 +17,17 @@ public class Movies implements Parcelable{
     public Movies() {
     }
 
-    protected Movies(Parcel in) {
+    public Movies(String id, String poster_path, String overview, String original_title, String release_date, String vote_average) {
+        this.id = id;
+        this.poster_path = poster_path;
+        this.overview = overview;
+        this.original_title = original_title;
+        this.release_date = release_date;
+        this.vote_average = vote_average;
+    }
+
+    public Movies(Parcel in) {
+        id = in.readString();
         poster_path = in.readString();
         overview = in.readString();
         original_title = in.readString();
@@ -83,10 +94,21 @@ public class Movies implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id);
         parcel.writeString(poster_path);
         parcel.writeString(overview);
         parcel.writeString(original_title);
         parcel.writeString(release_date);
         parcel.writeString(vote_average);
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+
 }

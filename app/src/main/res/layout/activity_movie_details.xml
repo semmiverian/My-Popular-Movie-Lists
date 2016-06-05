@@ -8,6 +8,7 @@
     tools:context="id.semmi.mymovielist.MovieDetails">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:theme="@style/AppTheme.AppBarOverlay">
@@ -71,8 +72,31 @@
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/releaseDate"
                 />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvTrailer"
+                android:layout_below="@+id/synopsis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvReview"
+                android:layout_below="@+id/rvTrailer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/star_full"
+        app:layout_anchor="@id/app_bar"
+        app:layout_anchorGravity="bottom|end"
+        android:onClick="fabClick"/>
 
 
 </android.support.design.widget.CoordinatorLayout>

@@ -4,4 +4,6 @@
     <string name="popular">Popular</string>
     <string name="highest_rated">Highest Rated</string>
     <string name="title_activity_movie_details">MovieDetails</string>
+    <string name="play_trailer">PLay Trailer</string>
+    <string name="favorite">Favorite</string>
 </resources>

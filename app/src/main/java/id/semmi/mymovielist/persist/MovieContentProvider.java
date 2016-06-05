@@ -7,10 +7,11 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
-import android.graphics.Movie;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.util.Log;
+
+import java.util.ArrayList;
 
 /**
  * Created by Semmiverian on 6/1/16.
@@ -18,7 +19,8 @@ import android.util.Log;
 public class MovieContentProvider extends ContentProvider {
 
     public static final int MOVIE = 1;
-    public static final int MOVIE_DETAILS = 32;
+    public static final int MOVIE_ID = 32;
+    public static final int FAVORITE_MOVIE_ID = 12;
     private MovieDbHelper movieDbHelper;
     private static final UriMatcher sUriMatcher = buildUriMatcher();
     private static final SQLiteQueryBuilder sSqlQUERY_BUILDER;
@@ -26,15 +28,16 @@ public class MovieContentProvider extends ContentProvider {
     static{
         sSqlQUERY_BUILDER = new SQLiteQueryBuilder();
         sSqlQUERY_BUILDER.setTables(MovieContract.MovieEntry.Table_Name);
-    }
 
+    }
 
     static UriMatcher buildUriMatcher(){
         final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
         final String authority = MovieContract.CONTENT_AUTHORITY;
-
+        matcher.addURI(authority,MovieContract.Path_Movie+"/*",MOVIE_ID);
         matcher.addURI(authority,MovieContract.Path_Movie,MOVIE);
-        matcher.addURI(authority,MovieContract.Path_Movie+"/*",MOVIE_DETAILS);
+//        matcher.addURI(authority,MovieContract.Path_Movie+"/*",FAVORITE_MOVIE_ID);
+
         return matcher;
     }
     @Override
@@ -51,9 +54,11 @@ public class MovieContentProvider extends ContentProvider {
             case MOVIE:
                 retrieveCursor = getAllMovies();
                 break;
-            case MOVIE_DETAILS:
-                retrieveCursor = getMovieDetail(uri);
+            case MOVIE_ID:
+                retrieveCursor = getFavoriteMovieId(uri);
                 break;
+//            case FAVORITE_MOVIE_ID:
+//                retrieveCursor = getFavoriteMovieId(uri);
             default:
                 throw new UnsupportedOperationException("Unknown Uri "+ uri);
         }
@@ -68,6 +73,14 @@ public class MovieContentProvider extends ContentProvider {
         return sSqlQUERY_BUILDER.query(movieDbHelper.getReadableDatabase(),null, MovieContract.MovieEntry._ID+"= ?",id,null,null,null);
     }
 
+    private Cursor getFavoriteMovieId(Uri uri){
+        String movie_id = MovieContract.MovieEntry.getMovieId(uri);
+        Log.d("asd", "getFacoriteMovieId: "+movie_id);
+        String[] id = {movie_id};
+        return sSqlQUERY_BUILDER.query(movieDbHelper.getReadableDatabase(),null, MovieContract.MovieEntry.COLUMN_MOVIE_ID+"= ?",id,null,null,null);
+
+    }
+
     private Cursor getAllMovies() {
         return sSqlQUERY_BUILDER.query(movieDbHelper.getReadableDatabase(),null,null,null,null,null,null);
     }
@@ -79,7 +92,7 @@ public class MovieContentProvider extends ContentProvider {
         switch (math){
             case MOVIE:
                 return MovieContract.MovieEntry.CONTENT_TYPE;
-            case MOVIE_DETAILS:
+            case MOVIE_ID:
                 return MovieContract.MovieEntry.CONTENT_ITEM_TYPE;
             default:
                 throw new UnsupportedOperationException("Unknown Uri"+ uri);
