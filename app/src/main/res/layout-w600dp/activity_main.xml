@@ -20,14 +20,27 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
-
-    <fragment
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:id="@+id/mainFragment"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:name="id.semmi.mymovielist.MainFragment"
-        tools:layout="@layout/content_main" />
+        android:orientation="horizontal">
+        <fragment
+            android:layout_weight="1"
+            android:layout_marginTop="70dp"
+            android:id="@+id/mainFragment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:name="id.semmi.mymovielist.MainFragment"
+            tools:layout="@layout/content_main" />
+
+        <FrameLayout
+            android:layout_marginTop="70dp"
+            android:id="@+id/movieDetails"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="4"/>
+    </LinearLayout>
+
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

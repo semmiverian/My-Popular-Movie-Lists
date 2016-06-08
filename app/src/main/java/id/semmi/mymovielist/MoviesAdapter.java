@@ -38,7 +38,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder holder, int position) {
         Movies movie = movies.get(position);
         holder.movie_title.setText(movie.getOriginal_title());
-        Glide.with(context).load("http://image.tmdb.org/t/p/w500/"+movie.getPoster_path())
+        Glide.with(context).load("http://image.tmdb.org/t/p/w1000/"+movie.getPoster_path())
                             .fitCenter()
                             .into(holder.movie_poster);
     }
